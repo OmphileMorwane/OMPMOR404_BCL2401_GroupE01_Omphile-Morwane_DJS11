@@ -4,9 +4,12 @@ import { lightTheme, darkTheme } from "../utils/Themes";
 import './App.css'
 
 const Container = styled.div`
+display: flex;
 background: ${({ theme }) => theme.bg };
 width: 100%;
 height: 100vh;
+overflow-x: hidden;
+overflow-y: hidden;
 `;
 
 function App() {
@@ -18,7 +21,9 @@ function App() {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 
     <Container>
-      <Sidebar/>
+      <>
+      Sidebar
+      </>
       Podcast
     </Container>
   
