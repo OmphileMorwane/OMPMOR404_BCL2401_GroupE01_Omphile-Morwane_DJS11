@@ -15,9 +15,10 @@ function App() {
 
   return (
     <>
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 
     <Container>
+      <Sidebar />
       Podcast
     </Container>
   
