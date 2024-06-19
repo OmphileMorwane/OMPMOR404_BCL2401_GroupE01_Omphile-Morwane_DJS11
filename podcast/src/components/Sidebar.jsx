@@ -18,7 +18,14 @@ const MenuContainer = styled.div`
   // transition: 0.3s ease-in-out;
   // }
 `;
+const Flex = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
 const Logo = styled.div`
+  width: 100%;
   color: ${({ theme }) => theme.primary};
   display: flex;
   align-items: center;
@@ -28,17 +35,41 @@ const Logo = styled.div`
   font-size: 20px;
   margin: 16px 0px;
 `;
-const Close = styled.div``;
-const Elements = styled.div``;
-const NavText = styled.div``;
+const Close = styled.div`
+  display: none;
+  @media (max-width: 1100px) {
+    display: block;
+  }
+`;
+const Elements = styled.div`
+  padding: 4px 16px;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  color: ${({ theme }) => theme.text_secondary};
+  width: 100%;
+  &:hover {
+    background-color: ${({ theme }) => theme.text_secondary + 50};
+  }
+`;
+const NavText = styled.div`
+  padding: 12px 0px;
+`;
 
 const Sidebar = () => {
   return (
     <MenuContainer>
-      <Logo>Podcast!!!</Logo>
-      <Close>
-        <CloseRounded />
-      </Close>
+      <Flex>
+        <Logo>Podcast!!!</Logo>
+        <Close>
+          <CloseRounded />
+        </Close>
+      </Flex>
+
       <Elements>
         <HomeRounded />
         <NavText>Dashboard</NavText>
