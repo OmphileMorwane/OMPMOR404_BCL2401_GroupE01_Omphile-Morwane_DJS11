@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "../utils/Themes";
 import "./App.css";
 import Sidebar from "./components/Sidebar";
+import NavBar from "./components/NavBar";
 import { BrowserRouter } from "react-router-dom";
 
 const Container = styled.div`
@@ -35,7 +36,10 @@ function App() {
               setDarkMode={setDarkMode}
               darkMode={darkMode}
             />
-            <Frame>Podcast</Frame>
+            <Frame>
+              <NavBar menuOpen={menuOpen}
+              setMenuOpen={setMenuOpen} />
+              Podcast</Frame>
           </Container>
         </BrowserRouter>
       </ThemeProvider>
