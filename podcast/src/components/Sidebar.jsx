@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { HomeRounded, CloseRounded } from "@mui/icons-material";
+import { HomeRounded, CloseRounded,SearchRounded, FavoriteRounded, UploadRounded, LightModeRounded, LogoutRounded } from "@mui/icons-material";
 import LogoImage from "./Images/Logo.png";
 import { Link } from "react-router-dom";
 
@@ -57,13 +57,51 @@ const Elements = styled.div`
   cursor: pointer;
   color: ${({ theme }) => theme.text_secondary};
   width: 100%;
+  text-decoration: none !important;
   &:hover {
     background-color: ${({ theme }) => theme.text_secondary + 50};
   }
 `;
 const NavText = styled.div`
   padding: 12px 0px;
+  text-decoration: none !important
 `;
+const menuItems = [
+{
+        link: "/",
+        name: "Dashboard",
+        icon: <HomeRounded />,
+},
+{
+        link: "/",
+        name: "Search",
+        icon: <SearchRounded />,
+},
+{
+        link: "/",
+        name: "Favourites",
+        icon: <FavoriteRounded />,
+},
+
+]
+
+const button = [
+        {
+                fun: ()=> console.log( "Upload"),
+                name: "Upload",
+                icon: "<UploadRounded />",
+        },
+        {
+                fun: ()=> console.log( "Upload"),
+                name: "LightMode",
+                icon: "<LightModeRounded />",
+        },
+        {
+                fun: ()=> console.log( "Upload"),
+                name: "Log out",
+                icon: "<LogoutRounded />",
+        },
+]
 
 const Sidebar = () => {
   return (
@@ -77,14 +115,17 @@ const Sidebar = () => {
           <CloseRounded />
         </Close>
       </Flex>
-      <Link>
-      <Elements>
-        <HomeRounded />
-        <NavText>Dashboard</NavText>
-      </Elements>
-      </Link>
+      {menuItems.map((item) => (
+        <Link to={item.link}>
+        <Elements>
+          {item.icon}
+          <NavText>{item.name}</NavText>
+        </Elements>
+        </Link>
+      ))}  
     </MenuContainer>
-  );
-};
-
+   );
+  };
+  
+  
 export default Sidebar;
