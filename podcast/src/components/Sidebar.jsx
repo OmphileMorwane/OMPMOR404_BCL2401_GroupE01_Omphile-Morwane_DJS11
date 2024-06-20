@@ -1,6 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { HomeRounded, CloseRounded,SearchRounded, FavoriteRounded, UploadRounded, LightModeRounded, LogoutRounded } from "@mui/icons-material";
+import {
+  HomeRounded,
+  CloseRounded,
+  SearchRounded,
+  FavoriteRounded,
+  UploadRounded,
+  LightModeRounded,
+  LogoutRounded,
+  DarkModeRounded,
+} from "@mui/icons-material";
 import LogoImage from "./Images/Logo.png";
 import { Link } from "react-router-dom";
 
@@ -64,53 +73,55 @@ const Elements = styled.div`
 `;
 const NavText = styled.div`
   padding: 12px 0px;
-  text-decoration: none !important
+  text-decoration: none !important;
 `;
 
 const HR = styled.div`
-width: 100%;
-height: 1px;
- background-color: ${({ theme }) => theme.text_secondary};
- margin: 10px 0px;
-`
-const menuItems = [
-{
-        link: "/",
-        name: "Dashboard",
-        icon: <HomeRounded />,
-},
-{
-        link: "/",
-        name: "Search",
-        icon: <SearchRounded />,
-},
-{
-        link: "/",
-        name: "Favourites",
-        icon: <FavoriteRounded />,
-},
+  width: 100%;
+  height: 1px;
+  background-color: ${({ theme }) => theme.text_secondary};
+  margin: 10px 0px;
+`;
 
-]
 
-const button = [
-        {
-                fun: ()=> console.log( "Upload"),
-                name: "Upload",
-                icon: <UploadRounded />,
-        },
-        {
-                fun: ()=> console.log( "Upload"),
-                name: "LightMode",
-                icon: <LightModeRounded />,
-        },
-        {
-                fun: ()=> console.log( "Upload"),
-                name: "Log out",
-                icon: <LogoutRounded />,
-        },
-]
+const Sidebar = ({ setMenuOpen, setDarkMode, darkMode }) => {
+        const menuItems = [
+                {
+                  link: "/",
+                  name: "Dashboard",
+                  icon: <HomeRounded />,
+                },
+                {
+                  link: "/search",
+                  name: "Search",
+                  icon: <SearchRounded />,
+                },
+                {
+                  link: "/favourites",
+                  name: "Favourites",
+                  icon: <FavoriteRounded />,
+                },
+              ];
+              
+              const button = [
+                {
+                  fun: () => console.log("Upload"),
+                  name: "Upload",
+                  icon: <UploadRounded />,
+                },
+                {
+                  fun: () => setDarkMode(!darkMode),
+                  name: darkMode? "Light Mode" : "Dark Mode",
 
-const Sidebar = () => {
+                  icon: darkMode? <LightModeRounded /> : <DarkModeRounded />,
+
+                },
+                {
+                  fun: () => console.log("Upload"),
+                  name: "Log out",
+                  icon: <LogoutRounded />,
+                },
+              ];
   return (
     <MenuContainer>
       <Flex>
@@ -123,25 +134,22 @@ const Sidebar = () => {
         </Close>
       </Flex>
       {menuItems.map((item) => (
-        <Link to={item.link} style={{ textDecoration: "none"}}>
-        <Elements>
-          {item.icon}
-          <NavText>{item.name}</NavText>
-        </Elements>
+        <Link to={item.link} style={{ textDecoration: "none" }}>
+          <Elements>
+            {item.icon}
+            <NavText>{item.name}</NavText>
+          </Elements>
         </Link>
-      ))}  
+      ))}
       <HR />
       {button.map((item) => (
         <Elements onClick={item.fun}>
           {item.icon}
           <NavText>{item.name}</NavText>
         </Elements>
-        
-      ))} 
-      
+      ))}
     </MenuContainer>
-   );
-  };
-  
-  
+  );
+};
+
 export default Sidebar;

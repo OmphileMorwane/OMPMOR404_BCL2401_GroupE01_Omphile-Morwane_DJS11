@@ -7,31 +7,34 @@ import { BrowserRouter } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
-  background: ${({ theme }) => theme.bg};
+  background: ${({ theme }) => theme.bgLight};
   width: 100%;
   height: 100vh;
   overflow-x: hidden;
   overflow-y: hidden;
 `;
-const MainContent = styled.div`
-  flex: 1;
+const Frame = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${({ theme }) => theme.text};
+  flex-direction: column;
+  flex: 3;
 `;
 
 function App() {
   //hooks
   const [darkMode, setDarkMode] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(true);
 
   return (
     <>
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <BrowserRouter>
           <Container>
-            <Sidebar />
-            <MainContent>Podcast</MainContent>
+            <Sidebar
+              setMenuOpen={setMenuOpen}
+              setDarkMode={setDarkMode}
+              darkMode={darkMode}
+            />
+            <Frame>Podcast</Frame>
           </Container>
         </BrowserRouter>
       </ThemeProvider>
