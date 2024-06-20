@@ -66,6 +66,13 @@ const NavText = styled.div`
   padding: 12px 0px;
   text-decoration: none !important
 `;
+
+const HR = styled.div`
+width: 100%;
+height: 1px;
+ background-color: ${({ theme }) => theme.text_secondary};
+ margin: 10px 0px;
+`
 const menuItems = [
 {
         link: "/",
@@ -89,17 +96,17 @@ const button = [
         {
                 fun: ()=> console.log( "Upload"),
                 name: "Upload",
-                icon: "<UploadRounded />",
+                icon: <UploadRounded />,
         },
         {
                 fun: ()=> console.log( "Upload"),
                 name: "LightMode",
-                icon: "<LightModeRounded />",
+                icon: <LightModeRounded />,
         },
         {
                 fun: ()=> console.log( "Upload"),
                 name: "Log out",
-                icon: "<LogoutRounded />",
+                icon: <LogoutRounded />,
         },
 ]
 
@@ -116,13 +123,22 @@ const Sidebar = () => {
         </Close>
       </Flex>
       {menuItems.map((item) => (
-        <Link to={item.link}>
+        <Link to={item.link} style={{ textDecoration: "none"}}>
         <Elements>
           {item.icon}
           <NavText>{item.name}</NavText>
         </Elements>
         </Link>
       ))}  
+      <HR />
+      {button.map((item) => (
+        <Elements onClick={item.fun}>
+          {item.icon}
+          <NavText>{item.name}</NavText>
+        </Elements>
+        
+      ))} 
+      
     </MenuContainer>
    );
   };
