@@ -4,7 +4,13 @@ import { lightTheme, darkTheme } from "../utils/Themes";
 import "./App.css";
 import Sidebar from "./components/Sidebar";
 import NavBar from "./components/NavBar";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard"
+import Profile from "./pages/Profile";
+import DisplayPodcast from "./pages/DisplayPodcast";
+import Search from "./pages/Search";
+import PodcastDetails from "./pages/PodcastDetails"
+import Favourites from "./pages/Favourites";
 
 const Container = styled.div`
   display: flex;
@@ -41,7 +47,17 @@ function App() {
             <Frame>
               <NavBar menuOpen={menuOpen}
               setMenuOpen={setMenuOpen} />
-              Podcast</Frame>
+              <Routes>
+                <Route path="/" exact element={<Dashboard/>} />
+                <Route path="/search" exact element={<Search/>} />
+                <Route path="/favourites" exact element={<Favourites/>} />
+                <Route path="/profile" exact element={<Profile/>} />
+                <Route path="/podcast/:id" exact element={<PodcastDetails/>} />
+                <Route path="/showpodcasts/:type" exact element={<DisplayPodcast/>} />
+
+              </Routes>
+              Podcast
+            </Frame>
           </Container>
         </BrowserRouter>
       </ThemeProvider>
