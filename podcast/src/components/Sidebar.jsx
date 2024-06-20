@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { HomeRounded, CloseRounded } from "@mui/icons-material";
+import LogoImage from "./Images/Logo.png";
 
 const MenuContainer = styled.div`
   flex: 0.5;
@@ -35,6 +36,9 @@ const Logo = styled.div`
   font-size: 20px;
   margin: 16px 0px;
 `;
+const Image = styled.img`
+  height: 40px;
+`;
 const Close = styled.div`
   display: none;
   @media (max-width: 1100px) {
@@ -64,7 +68,10 @@ const Sidebar = () => {
   return (
     <MenuContainer>
       <Flex>
-        <Logo>Podcast!!!</Logo>
+        <Logo>
+          <Image src={LogoImage} />
+          Code Talks!
+        </Logo>
         <Close>
           <CloseRounded />
         </Close>
