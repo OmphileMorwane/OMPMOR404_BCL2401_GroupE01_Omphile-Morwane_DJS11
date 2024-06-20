@@ -29,12 +29,19 @@ const ButtonDiv = styled.div`
  border: 1px solid ${({ theme}) => theme.primary};
  border-radius: 12px;
  padding: 8px 10px;
- gap: 4px;
+ gap: 8px;
 `;
-const NavBar = () => {
+
+const IcoButton = styled(IconButton)`
+color: ${({ theme }) => theme.text_secondary} !important
+
+`;
+const NavBar = ({setMenuOpen, menuOpen}) => {
   return (
     <NavBarDiv>
-      <Menu />
+        <IcoButton onClick={()=> setMenuOpen(!menuOpen)}>
+          <Menu />
+        </IcoButton>
       <ButtonDiv>
       <PersonRounded/>
       Login
