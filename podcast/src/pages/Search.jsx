@@ -32,6 +32,17 @@ const SearchBar = styled.div`
   color: ${({ theme }) => theme.text_secondary};
 `;
 
+const SearchInput = styled.input`
+  background: transparent;
+  border: none;
+  outline: none;
+  color: ${({ theme }) => theme.text_secondary};
+  width: 100%;
+  &::placeholder {
+    color: ${({ theme }) => theme.text_secondary};
+  }
+`;
+
 const Categories = styled.div`
   margin: 20px 10px;
 `;
@@ -86,7 +97,7 @@ export const Search = () => {
       <div className="searchBarContainer">
         <SearchBar>
           <SearchOutlinedIcon sx={{ color: "inherit" }} />
-          <input
+          <SearchInput
             type="text"
             placeholder="Search Artist/Podcasts"
             className="searchInput"
