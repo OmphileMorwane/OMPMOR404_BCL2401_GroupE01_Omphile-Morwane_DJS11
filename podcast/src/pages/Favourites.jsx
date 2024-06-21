@@ -224,6 +224,10 @@ export const Favourites = () => {
   const [favourites, setFavourites] = useState([]);
 
   useEffect(() => {
+    const storedFavourites =
+      JSON.parse(localStorage.getItem("favourites")) || [];
+    setFavourites(storedFavourites);
+
     fetch("https://podcast-api.netlify.app/shows")
       .then((response) => response.json())
       .then((data) => setPodcasts(data))
@@ -231,14 +235,21 @@ export const Favourites = () => {
   }, []);
 
   const handleFavouriteClick = (podcast) => {
-    setFavourites((prevFavourites) => {
-      const isFavourite = prevFavourites.some((fav) => fav.id === podcast.id);
-      if (isFavourite) {
-        return prevFavourites.filter((fav) => fav.id !== podcast.id);
-      } else {
-        return [...prevFavourites, podcast];
-      }
-    });
+    // Toggle the favourite status
+    const isFavourite = favourites.some((fav) => fav.id === podcast.id);
+    if (isFavourite) {
+      // Remove from favourites
+      const updatedFavourites = favourites.filter(
+        (fav) => fav.id !== podcast.id
+      );
+      setFavourites(updatedFavourites);
+      localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
+    } else {
+      // Add to favourites
+      const updatedFavourites = [...favourites, podcast];
+      setFavourites(updatedFavourites);
+      localStorage.setItem("favourites", JSON.stringify(updatedFavourites));
+    }
   };
 
   return (
