@@ -99,6 +99,7 @@ export const Search = () => {
           <SearchOutlinedIcon sx={{ color: "inherit" }} />
           <SearchInput
             type="text"
+            id="search-input"
             placeholder="Search Artist/Podcasts"
             className="searchInput"
             value={searched}

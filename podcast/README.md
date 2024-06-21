@@ -1,8 +1,34 @@
-# React + Vite
+#DJS11
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduction
 
-Currently, two official plugins are available:
+The Podcast App is a web application built using React and styled-components. It leverages the react-router-dom library for client-side routing and styled-components for flexible and maintainable styling. This app fetches podcast data from a remote API and allows users to manage their favorite podcasts seamlessly.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Usage:
+
+### Viewing and Managing Favourite Podcasts
+
+#### Favourites Page:
+
+- Navigate to /favourites to view your favorite podcasts.
+
+Click on the heart icon (FavoriteIcon) to add or remove a podcast from favorites.
+
+- Browsing All Podcasts
+  All Podcasts Page:
+
+- Additional Features
+  Search Functionality:
+  Use the search bar to find specific podcasts by name or category.
+  Results update dynamically based on the search query.
+
+### Netlify Deployment:
+
+[codetalkpodcast.netlify.app](https://omphilewebprofile.netlify.app/)
+
+### Contact Information
+
+For any questions, issues, or feedback regarding the Podcast App, please contact:
+
+Email: omphilemorwane@gmail.com
+GitHub: https://github.com/OmphileMorwane
