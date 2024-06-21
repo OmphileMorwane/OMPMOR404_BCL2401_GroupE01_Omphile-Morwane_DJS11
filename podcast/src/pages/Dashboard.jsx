@@ -30,70 +30,75 @@ background-color: ${theme.bg};
 `;
 
 const Topic = styled.div`
-color: ${({ theme }) => theme.text_primary};
+  color: ${({ theme }) => theme.text_primary};
   font-size: 24px;
   font-weight: 540;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @maedia (max-width: 768px){
+  @maedia (max-width: 768px) {
     font-size: 18px;
   }
 `;
 const Span = styled.div`
- color: ${({ theme }) => theme.text_secondary};
+  color: ${({ theme }) => theme.text_secondary};
   font-size: 16px;
   font-weight: 400;
   cursor: pointer;
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     font-size: 14px;
   }
   color: ${({ theme }) => theme.primary};
-  &:hover{
+  &:hover {
     transition: 0.2s ease-in-out;
   }
 `;
 const Podcasts = styled.div`
-display: flex;
-flex-wrap: wrap;
-gap: 14px;
-padding: 18px 6px;
-//center the items if only one item present
-@media (max-width: 550px){
-  justify-content: center;
-}
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 18px 6px;
+  //center the items if only one item present
+  @media (max-width: 550px) {
+    justify-content: center;
+  }
 `;
 
-const Dashboard = () => {
+export const Dashboard = () => {
   return (
     <DashboardMain>
       <FilterContainer>
         <Topic>
           Podcasts
-          <Link to={`/showpodcasts/Podcasts`} style={{ textDecoration: "none"}}>
+          <Link
+            to={`/showpodcasts/Podcasts`}
+            style={{ textDecoration: "none" }}
+          >
             <Span>Show All</Span>
           </Link>
         </Topic>
         <Podcasts>
-          <PodcastCard/>
-          <PodcastCard/>
-          <PodcastCard/>
+          <PodcastCard />
+          <PodcastCard />
+          <PodcastCard />
         </Podcasts>
       </FilterContainer>
 
       <FilterContainer>
         <Topic>
           Favorites
-          <Link to={`/showpodcasts/Favourites`} style={{ textDecoration: "none"}}>
+          <Link
+            to={`/showpodcasts/Favourites`}
+            style={{ textDecoration: "none" }}
+          >
             <Span>Show All</Span>
           </Link>
         </Topic>
         <Podcasts>
-          <PodcastCard/>
-          <PodcastCard/>
+          <PodcastCard />
+          <PodcastCard />
         </Podcasts>
       </FilterContainer>
     </DashboardMain>
   );
-}
-export default Dashboard;
+};
