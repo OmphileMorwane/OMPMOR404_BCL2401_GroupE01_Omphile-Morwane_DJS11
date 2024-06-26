@@ -131,6 +131,10 @@ const PodcastDetails = () => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
+    const storedFavorites =
+      JSON.parse(localStorage.getItem("favourites")) || [];
+    setFavorites(storedFavorites);
+
     fetch(`https://podcast-api.netlify.app/id/${id}`)
       .then((response) => response.json())
       .then((data) => {
@@ -150,11 +154,17 @@ const PodcastDetails = () => {
   };
 
   const toggleFavorite = (episode) => {
-    if (favorites.includes(episode)) {
-      setFavorites(favorites.filter((fav) => fav !== episode));
+    const updatedFavorites = [...favorites];
+    const index = updatedFavorites.findIndex((fav) => fav.id === episode.id);
+
+    if (index !== -1) {
+      updatedFavorites.splice(index, 1);
     } else {
-      setFavorites([...favorites, episode]);
+      updatedFavorites.push(episode);
     }
+
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favourites", JSON.stringify(updatedFavorites));
   };
 
   if (loading) {
@@ -183,7 +193,10 @@ const PodcastDetails = () => {
             />
             <SeasonTitle>{season.title}</SeasonTitle>
             <SeasonDescription>{season.description}</SeasonDescription>
-            <button onClick={() => handleSelectedSeason(index)} className="episodeBtn">
+            <button
+              onClick={() => handleSelectedSeason(index)}
+              className="episodeBtn"
+            >
               Open Episodes
             </button>
           </SeasonCard>
@@ -202,10 +215,10 @@ const PodcastDetails = () => {
               </EpisodeHeading>
               <EpisodeParagraph>{episode.description}</EpisodeParagraph>
               <FavoriteButton
-                isFavorite={favorites.includes(episode)}
+                isFavorite={favorites.some((fav) => fav.id === episode.id)}
                 onClick={() => toggleFavorite(episode)}
               >
-                {favorites.includes(episode)
+                {favorites.some((fav) => fav.id === episode.id)
                   ? "Remove from Favorites"
                   : "Add to Favorites"}
               </FavoriteButton>

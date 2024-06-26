@@ -56,23 +56,6 @@ const Top = styled.div`
   position: relative;
 `;
 
-const Favourite = styled(IconButton)`
-  color: white;
-  top: 8px;
-  right: 6px;
-  padding: 6px !important;
-  border-radius: 50%;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  background: ${({ theme }) =>
-    theme.text_secondary + 95 || "#33395"} !important;
-  color: white !important;
-  position: absolute !important;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 0 16px 6px #222423 !important;
-`;
-
 const CardImage = styled.img`
   object-fit: cover;
   width: 100%;
@@ -200,34 +183,31 @@ const DisplayPodcast = () => {
   return (
     <Container>
       {podcasts.map((podcast) => (
-        <Link to={`/podcast/${podcast.id}`}>
-        <Card key={podcast.id}>
-          <div>
-            <Top>
-              <Favourite>
-                <FavoriteIcon style={{ width: "16px", height: "16px" }} />
-              </Favourite>
-              <CardImage src={podcast.image} alt="podcast-image" />
-            </Top>
-            <CardInformation>
-              <MainInfo>
-                <Title>{podcast.title}</Title>
-                <Description>{podcast.description}</Description>
-                <SeasonsInfo>
-                  <Season>
-                    <SeasonNumber>Seasons: {podcast.seasons}</SeasonNumber>
-                  </Season>
-                  <Updated>
-                    Updated: {new Date(podcast.updated).toLocaleDateString()}
-                  </Updated>
-                </SeasonsInfo>
-              </MainInfo>
-            </CardInformation>
-          </div>
-          <PlayIcon>
-            <PlayArrow style={{ width: "28px", height: "28px" }} />
-          </PlayIcon>
-        </Card>
+        <Link key={podcast.id} to={`/podcast/${podcast.id}`}>
+          <Card>
+            <div>
+              <Top>
+                <CardImage src={podcast.image} alt="podcast-image" />
+              </Top>
+              <CardInformation>
+                <MainInfo>
+                  <Title>{podcast.title}</Title>
+                  <Description>{podcast.description}</Description>
+                  <SeasonsInfo>
+                    <Season>
+                      <SeasonNumber>Seasons: {podcast.seasons}</SeasonNumber>
+                    </Season>
+                    <Updated>
+                      Updated: {new Date(podcast.updated).toLocaleDateString()}
+                    </Updated>
+                  </SeasonsInfo>
+                </MainInfo>
+              </CardInformation>
+            </div>
+            <PlayIcon>
+              <PlayArrow style={{ width: "28px", height: "28px" }} />
+            </PlayIcon>
+          </Card>
         </Link>
       ))}
     </Container>

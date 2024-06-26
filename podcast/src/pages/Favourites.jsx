@@ -183,6 +183,16 @@ const Topic = styled.div`
   }
 `;
 
+const EpisodeHeading = styled.h2`
+  font-size: 20px;
+  margin-bottom: 8px;
+`;
+
+const EpisodeParagraph = styled.p`
+  font-size: 14px;
+  margin-bottom: 12px;
+`;
+
 const DisplayPodcast = ({ podcast, onFavouriteClick, isFavourite }) => (
   <Card>
     <div>
@@ -219,7 +229,7 @@ const DisplayPodcast = ({ podcast, onFavouriteClick, isFavourite }) => (
   </Card>
 );
 
-export const Favourites = () => {
+const Favourites = () => {
   const [podcasts, setPodcasts] = useState([]);
   const [favourites, setFavourites] = useState([]);
 
