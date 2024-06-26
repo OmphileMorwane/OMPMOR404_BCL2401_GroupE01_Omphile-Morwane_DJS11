@@ -3,6 +3,7 @@ import styled from "styled-components";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton } from "@mui/material";
 import { PlayArrow } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const PlayIcon = styled.div`
   padding: 10px;
@@ -168,7 +169,7 @@ const LoadingMessage = styled.div`
   margin-top: 20px;
 `;
 
-export const DisplayPodcast = () => {
+const DisplayPodcast = () => {
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true); // State to manage loading
 
@@ -184,7 +185,7 @@ export const DisplayPodcast = () => {
           );
           setPodcasts(sortedPodcasts);
           setLoading(false); // Once data is fetched, set loading to false
-        }, 1500); // Adjust delay time as per your preference
+        }, 1000); // Adjust delay time as per your preference
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
@@ -199,6 +200,7 @@ export const DisplayPodcast = () => {
   return (
     <Container>
       {podcasts.map((podcast) => (
+        <Link to={`/podcast/${podcast.id}`}>
         <Card key={podcast.id}>
           <div>
             <Top>
@@ -226,7 +228,10 @@ export const DisplayPodcast = () => {
             <PlayArrow style={{ width: "28px", height: "28px" }} />
           </PlayIcon>
         </Card>
+        </Link>
       ))}
     </Container>
   );
 };
+
+export default DisplayPodcast;

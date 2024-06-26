@@ -240,7 +240,7 @@ const getRandomPodcasts = (podcasts, count) => {
   return shuffled.slice(0, count);
 };
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const [podcasts, setPodcasts] = useState([]);
   const [recommended, setRecommended] = useState([]);
 
@@ -296,3 +296,4 @@ export const Dashboard = () => {
     </DashboardMain>
   );
 };
+export default Dashboard;
