@@ -83,18 +83,57 @@ const LoadingMessage = styled.div`
   margin-top: 20px;
 `;
 
+const Card = styled.div`
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+`;
+
+const CardImage = styled.img`
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+`;
+
+const EpisodeHeading = styled.h2`
+  font-size: 20px;
+  margin-bottom: 8px;
+`;
+
+const EpisodeParagraph = styled.p`
+  font-size: 14px;
+  margin-bottom: 12px;
+`;
+
+const FavoriteButton = styled.button`
+  background-color: ${(props) => (props.isFavorite ? "#ff6347" : "#1e90ff")};
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  margin-bottom: 12px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 const PodcastDetails = () => {
   const { id } = useParams();
   const [podcastShow, setPodcastShow] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    console.log("Fetching podcast data...");
     fetch(`https://podcast-api.netlify.app/id/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("API response data:", data);
         setTimeout(() => {
           setPodcastShow(data);
           setLoading(false);
@@ -107,8 +146,15 @@ const PodcastDetails = () => {
   }, [id]);
 
   const handleSelectedSeason = (seasonIndex) => {
-    console.log("Selected season index:", seasonIndex);
     setSelectedSeason(podcastShow.seasons[seasonIndex]);
+  };
+
+  const toggleFavorite = (episode) => {
+    if (favorites.includes(episode)) {
+      setFavorites(favorites.filter((fav) => fav !== episode));
+    } else {
+      setFavorites([...favorites, episode]);
+    }
   };
 
   if (loading) {
@@ -146,12 +192,27 @@ const PodcastDetails = () => {
       {selectedSeason && (
         <div>
           {selectedSeason.episodes.map((episode, index) => (
-            <div key={index}>
-              <h2 className="episodeHeading">
+            <Card key={index}>
+              <CardImage
+                src={episode.image}
+                alt={`Episode ${episode.episode} cover`}
+              />
+              <EpisodeHeading>
                 {episode.episode} : {episode.title}
-              </h2>
-              <p className="episodeParagraph">{episode.description}</p>
-            </div>
+              </EpisodeHeading>
+              <EpisodeParagraph>{episode.description}</EpisodeParagraph>
+              <FavoriteButton
+                isFavorite={favorites.includes(episode)}
+                onClick={() => toggleFavorite(episode)}
+              >
+                {favorites.includes(episode)
+                  ? "Remove from Favorites"
+                  : "Add to Favorites"}
+              </FavoriteButton>
+              <audio controls>
+                <source src={episode.file} type="audio/mpeg" />
+              </audio>
+            </Card>
           ))}
         </div>
       )}
