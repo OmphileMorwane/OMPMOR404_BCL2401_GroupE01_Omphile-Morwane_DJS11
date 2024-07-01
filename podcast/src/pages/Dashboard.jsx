@@ -3,6 +3,38 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { PlayArrow } from "@mui/icons-material";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+
+
+const sliderSettings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
+
+
 
 const PlayIcon = styled.div`
   padding: 10px;
@@ -283,11 +315,11 @@ const Dashboard = () => {
             <Span>Show All</Span>
           </Link>
         </Topic>
-        <Podcasts>
+        <Slider {...sliderSettings}>
           {recommended.map((podcast) => (
             <DisplayPodcast key={podcast.id} podcast={podcast} />
           ))}
-        </Podcasts>
+        </Slider>
       </FilterContainer>
     </DashboardMain>
   );
