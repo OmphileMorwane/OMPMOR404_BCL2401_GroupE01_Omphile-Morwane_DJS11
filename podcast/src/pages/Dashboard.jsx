@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton } from "@mui/material";
 import { PlayArrow } from "@mui/icons-material";
 
@@ -209,9 +208,6 @@ const DisplayPodcast = ({ podcast }) => (
   <Card>
     <div>
       <Top>
-        <Favourite>
-          <FavoriteIcon style={{ width: "16px", height: "16px" }} />
-        </Favourite>
         <CardImage src={podcast.image} alt="podcast-image" />
       </Top>
       <CardInformation>

@@ -91,7 +91,7 @@ const Card = styled.div`
   margin-bottom: 20px;
 `;
 
-const CardImage = styled.img`
+const EpisodeImage = styled.img`
   width: 100%;
   height: auto;
   object-fit: cover;
@@ -206,13 +206,14 @@ const PodcastDetails = () => {
         <div>
           {selectedSeason.episodes.map((episode, index) => (
             <Card key={index}>
-              <CardImage
-                src={episode.image}
-                alt={`Episode ${episode.episode} cover`}
-              />
+              
               <EpisodeHeading>
                 {episode.episode} : {episode.title}
               </EpisodeHeading>
+              <EpisodeImage
+                src={season.image}
+                alt={`Season ${season.season} cover`}
+              />
               <EpisodeParagraph>{episode.description}</EpisodeParagraph>
               <FavoriteButton
                 isFavorite={favorites.some((fav) => fav.id === episode.id)}
