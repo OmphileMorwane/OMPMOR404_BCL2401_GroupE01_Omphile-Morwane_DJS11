@@ -20,15 +20,6 @@ const Card = styled.div`
   padding: 20px;
   margin-bottom: 20px;
 `;
-
-const EpisodeImage = styled.img`
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 12px;
-`;
-
 const EpisodeHeading = styled.h2`
   font-size: 20px;
   margin-bottom: 8px;
@@ -38,7 +29,12 @@ const EpisodeParagraph = styled.p`
   font-size: 14px;
   margin-bottom: 12px;
 `;
-
+const Heading = styled.h1`
+  color: ${({ theme }) => theme.text_primary || "#fff"};
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+`;
 const Favourites = () => {
   const [favorites, setFavorites] = useState([]);
 
@@ -50,7 +46,7 @@ const Favourites = () => {
 
   return (
     <Container>
-      <h1>Your Favorite Episodes</h1>
+      <Heading>Your Favorite Episodes</Heading>
       {favorites.length === 0 ? (
         <p>No favorite episodes yet.</p>
       ) : (
