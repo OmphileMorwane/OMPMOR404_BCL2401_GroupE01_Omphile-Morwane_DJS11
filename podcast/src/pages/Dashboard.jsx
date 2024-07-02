@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton } from "@mui/material";
 import { PlayArrow } from "@mui/icons-material";
 
@@ -26,7 +25,7 @@ const PlayIcon = styled.div`
 const Card = styled.div`
   position: relative;
   text-decoration: none;
-  background-color: ${({ theme }) => theme.card || "#fff"};
+  background-color: ${({ theme }) => theme.card || "#D3D3D3"};
   max-width: 220px;
   height: 280px;
   display: flex;
@@ -204,14 +203,10 @@ const Podcasts = styled.div`
     justify-content: center;
   }
 `;
-
 const DisplayPodcast = ({ podcast }) => (
   <Card>
     <div>
       <Top>
-        <Favourite>
-          <FavoriteIcon style={{ width: "16px", height: "16px" }} />
-        </Favourite>
         <CardImage src={podcast.image} alt="podcast-image" />
       </Top>
       <CardInformation>
@@ -240,10 +235,9 @@ const getRandomPodcasts = (podcasts, count) => {
   return shuffled.slice(0, count);
 };
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const [podcasts, setPodcasts] = useState([]);
-  const [recommended, setRecommended] = useState([]);
-
+  const [recommended, setRecommended] = useState([]);  
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
       .then((response) => response.json())
@@ -296,3 +290,4 @@ export const Dashboard = () => {
     </DashboardMain>
   );
 };
+export default Dashboard;

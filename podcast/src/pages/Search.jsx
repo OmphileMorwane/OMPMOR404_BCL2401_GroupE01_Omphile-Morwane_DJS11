@@ -82,7 +82,7 @@ const OtherResults = styled.div`
   }
 `;
 
-export const Search = () => {
+const Search = () => {
   const [searched, setSearched] = useState("");
   const [searchedPodcasts, setSearchedPodcasts] = useState([1, 2, 3, 4, 5, 6]);
   const [loading, setLoading] = useState(false);
@@ -148,3 +148,5 @@ export const Search = () => {
     </Searchmain>
   );
 };
+
+export default Search;

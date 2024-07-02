@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { IconButton } from "@mui/material";
 import { PlayArrow } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const PlayIcon = styled.div`
   padding: 10px;
@@ -25,7 +24,7 @@ const PlayIcon = styled.div`
 const Card = styled.div`
   position: relative;
   text-decoration: none;
-  background-color: ${({ theme }) => theme.card || "#fff"};
+  background-color: ${({ theme }) => theme.card || "#FFC0CB"};
   max-width: 220px;
   height: 280px;
   display: flex;
@@ -53,23 +52,6 @@ const Top = styled.div`
   align-items: center;
   height: 150px;
   position: relative;
-`;
-
-const Favourite = styled(IconButton)`
-  color: white;
-  top: 8px;
-  right: 6px;
-  padding: 6px !important;
-  border-radius: 50%;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  background: ${({ theme }) =>
-    theme.text_secondary + 95 || "#33395"} !important;
-  color: white !important;
-  position: absolute !important;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 0 16px 6px #222423 !important;
 `;
 
 const CardImage = styled.img`
@@ -168,9 +150,38 @@ const LoadingMessage = styled.div`
   margin-top: 20px;
 `;
 
-export const DisplayPodcast = () => {
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+`;
+
+const Heading = styled.h1`
+  color: ${({ theme }) => theme.text_primary || "#ffff"};
+  font-size: 30px;
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  gap:400px;
+`;
+
+const SearchInput = styled.input`
+  padding: 8px;
+  font-size: 16px;
+  border: 3px solid ${({ theme }) => theme.border || "#000000"};
+  border-radius: 4px;
+  background-color: #ff69b4; 
+  color: #000;
+`;
+
+const DisplayPodcast = () => {
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true); // State to manage loading
+  const [sortOrder, setSortOrder] = useState("A-Z"); // State for sorting order
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
@@ -184,7 +195,7 @@ export const DisplayPodcast = () => {
           );
           setPodcasts(sortedPodcasts);
           setLoading(false); // Once data is fetched, set loading to false
-        }, 1500); // Adjust delay time as per your preference
+        }, 1000); // Adjust delay time as per your preference
       })
       .catch((error) => {
         console.error("Error fetching data: ", error);
@@ -192,41 +203,77 @@ export const DisplayPodcast = () => {
       });
   }, []);
 
+  const sortPodcasts = (order) => {
+    const sorted = podcasts.slice().sort((a, b) => {
+      if (order === "A-Z") {
+        return a.title.localeCompare(b.title);
+      } else {
+        return b.title.localeCompare(a.title);
+      }
+    });
+    setPodcasts(sorted);
+    setSortOrder(order);
+  };
+
+  const filteredPodcasts = podcasts.filter((podcast) =>
+    podcast.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (loading) {
     return <LoadingMessage>Loading...</LoadingMessage>;
   }
 
   return (
-    <Container>
-      {podcasts.map((podcast) => (
-        <Card key={podcast.id}>
-          <div>
-            <Top>
-              <Favourite>
-                <FavoriteIcon style={{ width: "16px", height: "16px" }} />
-              </Favourite>
-              <CardImage src={podcast.image} alt="podcast-image" />
-            </Top>
-            <CardInformation>
-              <MainInfo>
-                <Title>{podcast.title}</Title>
-                <Description>{podcast.description}</Description>
-                <SeasonsInfo>
-                  <Season>
-                    <SeasonNumber>Seasons: {podcast.seasons}</SeasonNumber>
-                  </Season>
-                  <Updated>
-                    Updated: {new Date(podcast.updated).toLocaleDateString()}
-                  </Updated>
-                </SeasonsInfo>
-              </MainInfo>
-            </CardInformation>
-          </div>
-          <PlayIcon>
-            <PlayArrow style={{ width: "28px", height: "28px" }} />
-          </PlayIcon>
-        </Card>
-      ))}
-    </Container>
+    <>
+      <Header>
+        <Heading>Podcasts</Heading>
+        <SearchContainer>
+          <SearchInput
+            type="text"
+            placeholder="Search Podcasts"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button
+            onClick={() => sortPodcasts(sortOrder === "A-Z" ? "Z-A" : "A-Z")}
+          >
+            {sortOrder === "A-Z" ? "Sort Z-A" : "Sort A-Z"}
+          </button>
+        </SearchContainer>
+      </Header>
+      <Container>
+        {filteredPodcasts.map((podcast) => (
+          <Link key={podcast.id} to={`/podcast/${podcast.id}`}>
+            <Card>
+              <div>
+                <Top>
+                  <CardImage src={podcast.image} alt="podcast-image" />
+                </Top>
+                <CardInformation>
+                  <MainInfo>
+                    <Title>{podcast.title}</Title>
+                    <Description>{podcast.description}</Description>
+                    <SeasonsInfo>
+                      <Season>
+                        <SeasonNumber>Seasons: {podcast.seasons}</SeasonNumber>
+                      </Season>
+                      <Updated>
+                        Updated:{" "}
+                        {new Date(podcast.updated).toLocaleDateString()}
+                      </Updated>
+                    </SeasonsInfo>
+                  </MainInfo>
+                </CardInformation>
+              </div>
+              <PlayIcon>
+                <PlayArrow style={{ width: "28px", height: "28px" }} />
+              </PlayIcon>
+            </Card>
+          </Link>
+        ))}
+      </Container>
+    </>
   );
 };
+
+export default DisplayPodcast;
