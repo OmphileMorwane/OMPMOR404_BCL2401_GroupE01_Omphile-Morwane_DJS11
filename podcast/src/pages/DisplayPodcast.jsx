@@ -152,10 +152,10 @@ const LoadingMessage = styled.div`
 
 const Header = styled.div`
   display: flex;
-  justify-content: center; // Center the header
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  gap: 20px; // Add some space between the heading and button
+  gap: 20px;
 `;
 
 const Heading = styled.h1`
@@ -163,10 +163,18 @@ const Heading = styled.h1`
   font-size: 24px;
 `;
 
+const SearchInput = styled.input`
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid ${({ theme }) => theme.border || "#ccc"};
+  border-radius: 4px;
+`;
+
 const DisplayPodcast = () => {
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true); // State to manage loading
   const [sortOrder, setSortOrder] = useState("A-Z"); // State for sorting order
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
@@ -200,6 +208,10 @@ const DisplayPodcast = () => {
     setSortOrder(order);
   };
 
+  const filteredPodcasts = podcasts.filter((podcast) =>
+    podcast.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   if (loading) {
     return <LoadingMessage>Loading...</LoadingMessage>;
   }
@@ -208,6 +220,12 @@ const DisplayPodcast = () => {
     <>
       <Header>
         <Heading>Podcasts</Heading>
+        <SearchInput
+          type="text"
+          placeholder="Search Podcasts"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
         <button
           onClick={() => sortPodcasts(sortOrder === "A-Z" ? "Z-A" : "A-Z")}
         >
@@ -215,7 +233,7 @@ const DisplayPodcast = () => {
         </button>
       </Header>
       <Container>
-        {podcasts.map((podcast) => (
+        {filteredPodcasts.map((podcast) => (
           <Link key={podcast.id} to={`/podcast/${podcast.id}`}>
             <Card>
               <div>
