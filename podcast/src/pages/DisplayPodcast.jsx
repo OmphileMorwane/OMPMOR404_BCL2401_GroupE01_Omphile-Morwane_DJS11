@@ -159,7 +159,8 @@ const Header = styled.div`
 `;
 
 const Heading = styled.h1`
-  color: ${({ theme }) => theme.text_primary || "#ffff"}; // Customize the font color
+  color: ${({ theme }) => theme.text_primary || "#ffff"};
+  font-size: 24px;
 `;
 
 const DisplayPodcast = () => {
@@ -207,7 +208,9 @@ const DisplayPodcast = () => {
     <>
       <Header>
         <Heading>Podcasts</Heading>
-        <button onClick={() => sortPodcasts(sortOrder === "A-Z" ? "Z-A" : "A-Z")}>
+        <button
+          onClick={() => sortPodcasts(sortOrder === "A-Z" ? "Z-A" : "A-Z")}
+        >
           {sortOrder === "A-Z" ? "Sort Z-A" : "Sort A-Z"}
         </button>
       </Header>
@@ -228,7 +231,8 @@ const DisplayPodcast = () => {
                         <SeasonNumber>Seasons: {podcast.seasons}</SeasonNumber>
                       </Season>
                       <Updated>
-                        Updated: {new Date(podcast.updated).toLocaleDateString()}
+                        Updated:{" "}
+                        {new Date(podcast.updated).toLocaleDateString()}
                       </Updated>
                     </SeasonsInfo>
                   </MainInfo>
@@ -246,5 +250,3 @@ const DisplayPodcast = () => {
 };
 
 export default DisplayPodcast;
-
-
