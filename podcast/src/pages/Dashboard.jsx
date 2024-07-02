@@ -203,6 +203,7 @@ const Podcasts = styled.div`
     justify-content: center;
   }
 `;
+
 const DisplayPodcast = ({ podcast }) => (
   <Card>
     <div>
@@ -237,7 +238,9 @@ const getRandomPodcasts = (podcasts, count) => {
 
 const Dashboard = () => {
   const [podcasts, setPodcasts] = useState([]);
-  const [recommended, setRecommended] = useState([]);  
+  const [recommended, setRecommended] = useState([]);
+  const [loading, setLoading] = useState(true); // Loading state
+
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
       .then((response) => response.json())
@@ -248,9 +251,18 @@ const Dashboard = () => {
         );
         setPodcasts(data.slice(0, 4));
         setRecommended(getRandomPodcasts(data, 4));
+        setLoading(false); // Set loading to false after data is fetched
       })
-      .catch((error) => console.error("Error fetching data: ", error));
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+        setLoading(false); // Handle error and ensure loading is set to false
+      });
   }, []);
+
+  // Show loading message while data is being fetched
+  if (loading) {
+    return <LoadingMessage>Loading...</LoadingMessage>;
+  }
 
   return (
     <DashboardMain>
@@ -290,4 +302,16 @@ const Dashboard = () => {
     </DashboardMain>
   );
 };
+
+// Styled component for loading message
+const LoadingMessage = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
 export default Dashboard;
