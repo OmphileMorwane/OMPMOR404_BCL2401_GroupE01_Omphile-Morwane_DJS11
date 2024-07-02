@@ -47,7 +47,6 @@ function App() {
             <NavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/search" element={<Search />} />
               <Route path="/favourites" element={<Favourites />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/podcast/:id" element={<PodcastDetails />} />
@@ -61,4 +60,3 @@ function App() {
 }
 
 export default App;
-
