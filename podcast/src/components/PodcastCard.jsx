@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { IconButton } from "@mui/material";
@@ -71,7 +71,7 @@ const Favourite = styled(IconButton)`
   box-shadow: 0 0 16px 6px #222423 !important;
 `;
 
-const CardImage = styled.div`
+const CardImage = styled.img`
   object-fit: cover;
   width: 220px;
   height: 140px;
@@ -149,37 +149,32 @@ const Updated = styled.div`
   width: max-content;
 `;
 
-export const PodcastCard = () => {
-
-
+export const PodcastCard = ({ podcast }) => {
   return (
     <Card>
       <div>
         <Top>
           <Favourite>
-            <FavoriteIcon
-              style={{ width: "16px", height: "16px" }}
-            />
+            <FavoriteIcon style={{ width: "16px", height: "16px" }} />
           </Favourite>
-
-          <CardImage />
+          <CardImage src={podcast.image} alt="podcast-image" />
+          <PlayIcon>
+            <PlayArrow style={{ width: "28px", height: "28px" }} />
+          </PlayIcon>
         </Top>
         <CradInfomation>
           <MainInfo>
-            <Title>title</Title>
-            <Description>description</Description>
+            <Title>{podcast.title}</Title>
+            <Description>{podcast.description}</Description>
             <SeasonsInfo>
               <Season>
-                <SeasonNumber>Seasons: </SeasonNumber>
+                <SeasonNumber>Seasons: {podcast.seasons}</SeasonNumber>
               </Season>
-              <Updated>Updated: </Updated>
+              <Updated>Updated: {podcast.updated}</Updated>
             </SeasonsInfo>
           </MainInfo>
         </CradInfomation>
       </div>
-      <PlayIcon>
-        <PlayArrow style={{ width: "28px", height: "28px" }} />
-      </PlayIcon>
     </Card>
   );
 };
