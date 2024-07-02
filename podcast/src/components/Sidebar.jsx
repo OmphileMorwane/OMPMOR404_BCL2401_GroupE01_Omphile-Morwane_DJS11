@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {
   HomeRounded,
   CloseRounded,
-  SearchRounded,
   FavoriteRounded,
   CloudUploadRounded,
   LightModeRounded,
@@ -21,12 +20,12 @@ const MenuContainer = styled.div`
   background-color: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.text_primary};
   @media (max-width: 1100px) {
-  position: fixed;
-  z-index: 1000;
-  width: 100%;
-  max-width: 250px;
-  left: ${({ menuOpen }) => (menuOpen ? "0" : "-100%")};
-  transition: 0.3s ease-in-out;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    max-width: 250px;
+    left: ${({ menuOpen }) => (menuOpen ? "0" : "-100%")};
+    transition: 0.3s ease-in-out;
   }
 `;
 const Flex = styled.div`
@@ -35,7 +34,7 @@ const Flex = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 12px
+  padding: 0px 12px;
 `;
 const Logo = styled.div`
   width: 100%;
@@ -82,49 +81,37 @@ const NavText = styled.div`
 const HR = styled.div`
   width: 100%;
   height: 1px;
-  background-color: ${({ theme }) => theme.text_secondary+50};
+  background-color: ${({ theme }) => theme.text_secondary + 50};
   margin: 10px 0px;
 `;
 
-
 const Sidebar = ({ menuOpen, setMenuOpen, setDarkMode, darkMode }) => {
-        const menuItems = [
-                {
-                  link: "/",
-                  name: "Dashboard",
-                  icon: <HomeRounded />,
-                },
-                {
-                  link: "/search",
-                  name: "Search",
-                  icon: <SearchRounded />,
-                },
-                {
-                  link: "/favourites",
-                  name: "Favourites",
-                  icon: <FavoriteRounded />,
-                },
-              ];
-              
-              const button = [
-                {
-                  fun: () => console.log("Upload"),
-                  name: "Upload",
-                  icon: <CloudUploadRounded />,
-                },
-                {
-                  fun: () => setDarkMode(!darkMode),
-                  name: darkMode? "Light Mode" : "Dark Mode",
+  const menuItems = [
+    {
+      link: "/",
+      name: "Dashboard",
+      icon: <HomeRounded />,
+    },
+    {
+      link: "/favourites",
+      name: "Favourites",
+      icon: <FavoriteRounded />,
+    },
+  ];
 
-                  icon: darkMode? <LightModeRounded /> : <DarkModeRounded />,
+  const button = [
+    {
+      fun: () => setDarkMode(!darkMode),
+      name: darkMode ? "Light Mode" : "Dark Mode",
 
-                },
-                {
-                  fun: () => console.log("Upload"),
-                  name: "Log out",
-                  icon: <LogoutRounded />,
-                },
-              ];
+      icon: darkMode ? <LightModeRounded /> : <DarkModeRounded />,
+    },
+    {
+      fun: () => console.log("Upload"),
+      name: "Log out",
+      icon: <LogoutRounded />,
+    },
+  ];
   return (
     <MenuContainer menuOpen={menuOpen}>
       <Flex>
