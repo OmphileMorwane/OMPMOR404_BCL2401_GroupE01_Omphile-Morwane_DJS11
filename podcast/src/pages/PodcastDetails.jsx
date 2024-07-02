@@ -155,7 +155,9 @@ const PodcastDetails = () => {
 
   const toggleFavorite = (episode) => {
     const updatedFavorites = [...favorites];
-    const index = updatedFavorites.findIndex((fav) => fav.id === episode.id);
+    const index = updatedFavorites.findIndex(
+      (fav) => fav.title === episode.title
+    );
 
     if (index !== -1) {
       updatedFavorites.splice(index, 1);
@@ -211,10 +213,12 @@ const PodcastDetails = () => {
               </EpisodeHeading>
               <EpisodeParagraph>{episode.description}</EpisodeParagraph>
               <FavoriteButton
-                isFavorite={favorites.some((fav) => fav.id === episode.id)}
+                isFavorite={favorites.some(
+                  (fav) => fav.title === episode.title
+                )}
                 onClick={() => toggleFavorite(episode)}
               >
-                {favorites.some((fav) => fav.id === episode.id)
+                {favorites.some((fav) => fav.title === episode.title)
                   ? "Remove from Favorites"
                   : "Add to Favorites"}
               </FavoriteButton>
