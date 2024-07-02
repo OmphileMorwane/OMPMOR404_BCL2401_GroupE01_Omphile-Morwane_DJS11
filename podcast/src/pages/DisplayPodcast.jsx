@@ -152,7 +152,7 @@ const LoadingMessage = styled.div`
 
 const Header = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
   gap: 20px;
@@ -160,14 +160,21 @@ const Header = styled.div`
 
 const Heading = styled.h1`
   color: ${({ theme }) => theme.text_primary || "#ffff"};
-  font-size: 24px;
+  font-size: 30px;
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  gap:400px;
 `;
 
 const SearchInput = styled.input`
   padding: 8px;
   font-size: 16px;
-  border: 1px solid ${({ theme }) => theme.border || "#ccc"};
+  border: 3px solid ${({ theme }) => theme.border || "#000000"};
   border-radius: 4px;
+  background-color: #ff69b4; 
+  color: #000;
 `;
 
 const DisplayPodcast = () => {
@@ -220,17 +227,19 @@ const DisplayPodcast = () => {
     <>
       <Header>
         <Heading>Podcasts</Heading>
-        <SearchInput
-          type="text"
-          placeholder="Search Podcasts"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <button
-          onClick={() => sortPodcasts(sortOrder === "A-Z" ? "Z-A" : "A-Z")}
-        >
-          {sortOrder === "A-Z" ? "Sort Z-A" : "Sort A-Z"}
-        </button>
+        <SearchContainer>
+          <SearchInput
+            type="text"
+            placeholder="Search Podcasts"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button
+            onClick={() => sortPodcasts(sortOrder === "A-Z" ? "Z-A" : "A-Z")}
+          >
+            {sortOrder === "A-Z" ? "Sort Z-A" : "Sort A-Z"}
+          </button>
+        </SearchContainer>
       </Header>
       <Container>
         {filteredPodcasts.map((podcast) => (
