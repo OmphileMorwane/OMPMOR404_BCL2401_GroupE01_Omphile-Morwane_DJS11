@@ -206,14 +206,9 @@ const PodcastDetails = () => {
         <div>
           {selectedSeason.episodes.map((episode, index) => (
             <Card key={index}>
-              
               <EpisodeHeading>
                 {episode.episode} : {episode.title}
               </EpisodeHeading>
-              <EpisodeImage
-                src={season.image}
-                alt={`Season ${season.season} cover`}
-              />
               <EpisodeParagraph>{episode.description}</EpisodeParagraph>
               <FavoriteButton
                 isFavorite={favorites.some((fav) => fav.id === episode.id)}
