@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { IconButton } from "@mui/material";
 import { PlayArrow } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
@@ -26,7 +24,7 @@ const PlayIcon = styled.div`
 const Card = styled.div`
   position: relative;
   text-decoration: none;
-  background-color: ${({ theme }) => theme.card || "#fff"};
+  background-color: ${({ theme }) => theme.card || "#FFC0CB"};
   max-width: 220px;
   height: 280px;
   display: flex;
@@ -152,9 +150,22 @@ const LoadingMessage = styled.div`
   margin-top: 20px;
 `;
 
+const Header = styled.div`
+  display: flex;
+  justify-content: center; // Center the header
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px; // Add some space between the heading and button
+`;
+
+const Heading = styled.h1`
+  color: ${({ theme }) => theme.text_primary || "#ffff"}; // Customize the font color
+`;
+
 const DisplayPodcast = () => {
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true); // State to manage loading
+  const [sortOrder, setSortOrder] = useState("A-Z"); // State for sorting order
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
@@ -176,42 +187,64 @@ const DisplayPodcast = () => {
       });
   }, []);
 
+  const sortPodcasts = (order) => {
+    const sorted = podcasts.slice().sort((a, b) => {
+      if (order === "A-Z") {
+        return a.title.localeCompare(b.title);
+      } else {
+        return b.title.localeCompare(a.title);
+      }
+    });
+    setPodcasts(sorted);
+    setSortOrder(order);
+  };
+
   if (loading) {
     return <LoadingMessage>Loading...</LoadingMessage>;
   }
 
   return (
-    <Container>
-      {podcasts.map((podcast) => (
-        <Link key={podcast.id} to={`/podcast/${podcast.id}`}>
-          <Card>
-            <div>
-              <Top>
-                <CardImage src={podcast.image} alt="podcast-image" />
-              </Top>
-              <CardInformation>
-                <MainInfo>
-                  <Title>{podcast.title}</Title>
-                  <Description>{podcast.description}</Description>
-                  <SeasonsInfo>
-                    <Season>
-                      <SeasonNumber>Seasons: {podcast.seasons}</SeasonNumber>
-                    </Season>
-                    <Updated>
-                      Updated: {new Date(podcast.updated).toLocaleDateString()}
-                    </Updated>
-                  </SeasonsInfo>
-                </MainInfo>
-              </CardInformation>
-            </div>
-            <PlayIcon>
-              <PlayArrow style={{ width: "28px", height: "28px" }} />
-            </PlayIcon>
-          </Card>
-        </Link>
-      ))}
-    </Container>
+    <>
+      <Header>
+        <Heading>Podcasts</Heading>
+        <button onClick={() => sortPodcasts(sortOrder === "A-Z" ? "Z-A" : "A-Z")}>
+          {sortOrder === "A-Z" ? "Sort Z-A" : "Sort A-Z"}
+        </button>
+      </Header>
+      <Container>
+        {podcasts.map((podcast) => (
+          <Link key={podcast.id} to={`/podcast/${podcast.id}`}>
+            <Card>
+              <div>
+                <Top>
+                  <CardImage src={podcast.image} alt="podcast-image" />
+                </Top>
+                <CardInformation>
+                  <MainInfo>
+                    <Title>{podcast.title}</Title>
+                    <Description>{podcast.description}</Description>
+                    <SeasonsInfo>
+                      <Season>
+                        <SeasonNumber>Seasons: {podcast.seasons}</SeasonNumber>
+                      </Season>
+                      <Updated>
+                        Updated: {new Date(podcast.updated).toLocaleDateString()}
+                      </Updated>
+                    </SeasonsInfo>
+                  </MainInfo>
+                </CardInformation>
+              </div>
+              <PlayIcon>
+                <PlayArrow style={{ width: "28px", height: "28px" }} />
+              </PlayIcon>
+            </Card>
+          </Link>
+        ))}
+      </Container>
+    </>
   );
 };
 
 export default DisplayPodcast;
+
+
