@@ -3,43 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { PlayArrow } from "@mui/icons-material";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-
-const sliderSettings = {
-  dots: true,
-  infinite: true,
-  speed: 800,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 5,
-        slidesToScroll: 5,
-        
-      },
-    },
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 5,
-        slidesToScroll: 5,
-        
-      },
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 5,
-        slidesToScroll: 5,
-        
-      }
-    }
-  ],
-};
 
 const PlayIcon = styled.div`
   padding: 10px;
@@ -62,7 +25,7 @@ const PlayIcon = styled.div`
 const Card = styled.div`
   position: relative;
   text-decoration: none;
-  background-color: ${({ theme }) => theme.card || "#fff"};
+  background-color: ${({ theme }) => theme.card || "#D3D3D3"};
   max-width: 220px;
   height: 280px;
   display: flex;
@@ -240,25 +203,6 @@ const Podcasts = styled.div`
     justify-content: center;
   }
 `;
-
-const SliderContainer = styled.div`
-  .slick-slider {
-  width: 100%;
-}
-
-
-  .slick-slide {
-    display: inline-block;
-    padding: 0 10px;
-    box-sizing: border-box;
-  }
-
-  .slick-track {
-    display: flex;
-    align-items: center;
-  }
-`;
-
 const DisplayPodcast = ({ podcast }) => (
   <Card>
     <div>
@@ -293,8 +237,7 @@ const getRandomPodcasts = (podcasts, count) => {
 
 const Dashboard = () => {
   const [podcasts, setPodcasts] = useState([]);
-  const [recommended, setRecommended] = useState([]);
-
+  const [recommended, setRecommended] = useState([]);  
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
       .then((response) => response.json())
@@ -314,7 +257,10 @@ const Dashboard = () => {
       <FilterContainer>
         <Topic>
           Podcasts
-          <Link to={`/showpodcasts/podcast`} style={{ textDecoration: "none" }}>
+          <Link
+            to={`/showpodcasts/podcasts`}
+            style={{ textDecoration: "none" }}
+          >
             <Span>Show All</Span>
           </Link>
         </Topic>
@@ -328,19 +274,18 @@ const Dashboard = () => {
       <FilterContainer>
         <Topic>
           Recommended
-          <Link to={`/showpodcasts/podcast`} style={{ textDecoration: "none" }}>
+          <Link
+            to={`/showpodcasts/recommended`}
+            style={{ textDecoration: "none" }}
+          >
             <Span>Show All</Span>
           </Link>
         </Topic>
         <Podcasts>
-          <SliderContainer>
-          <Slider {...sliderSettings}>
-             {recommended.map((podcast) => (
+          {recommended.map((podcast) => (
             <DisplayPodcast key={podcast.id} podcast={podcast} />
           ))}
-        </Slider>
-        </SliderContainer>
-          </Podcasts>   
+        </Podcasts>
       </FilterContainer>
     </DashboardMain>
   );
