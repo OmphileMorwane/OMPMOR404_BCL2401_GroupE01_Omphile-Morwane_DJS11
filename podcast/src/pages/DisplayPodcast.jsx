@@ -24,7 +24,7 @@ const PlayIcon = styled.div`
 const Card = styled.div`
   position: relative;
   text-decoration: none;
-  background-color: ${({ theme }) => theme.card || "#FFC0CB"};
+  background-color: ${({ theme }) => theme.card || "#D3D3D3"};
   max-width: 220px;
   height: 280px;
   display: flex;
@@ -58,6 +58,7 @@ const CardImage = styled.img`
   object-fit: cover;
   width: 100%;
   height: 140px;
+  background-color: #d3d3d3;
   border-radius: 6px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   &:hover {
@@ -165,7 +166,7 @@ const Heading = styled.h1`
 
 const SearchContainer = styled.div`
   display: flex;
-  gap:400px;
+  gap: 400px;
 `;
 
 const SearchInput = styled.input`
@@ -173,7 +174,7 @@ const SearchInput = styled.input`
   font-size: 16px;
   border: 3px solid ${({ theme }) => theme.border || "#000000"};
   border-radius: 4px;
-  background-color: #ff69b4; 
+  background-color: #ff69b4;
   color: #000;
 `;
 

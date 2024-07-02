@@ -55,22 +55,6 @@ const Top = styled.div`
   position: relative;
 `;
 
-const Favourite = styled(IconButton)`
-  color: white;
-  top: 8px;
-  right: 6px;
-  padding: 6px !important;
-  border-radius: 50%;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  background: ${({ theme }) =>
-    theme.text_secondary + 95 || "#33395"} !important;
-  color: white !important;
-  position: absolute !important;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 0 16px 6px #222423 !important;
-`;
 
 const CardImage = styled.img`
   object-fit: cover;

@@ -49,7 +49,7 @@ const SeasonsContainer = styled.div`
 
 const SeasonCard = styled.div`
   flex: 0 0 200px;
-  background-color: #fff;
+  background-color: #d3d3d3;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 15px;
@@ -84,19 +84,11 @@ const LoadingMessage = styled.div`
 `;
 
 const Card = styled.div`
-  background-color: #fff;
+  background-color: #d3d3d3;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
-`;
-
-const EpisodeImage = styled.img`
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 12px;
 `;
 
 const EpisodeHeading = styled.h2`
